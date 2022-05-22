@@ -11,6 +11,7 @@ CREATE TABLE EntityAuthInfo (
     userPassword VARCHAR(100) NOT NULL,
     userType ENUM("Buyer", "Seller") NOT NULL
 );
+
 CREATE TABLE Products (
     productId CHAR(36) NOT NULL PRIMARY KEY,
     productName VARCHAR(50) NOT NULL,
@@ -18,6 +19,7 @@ CREATE TABLE Products (
     userId CHAR(36) NOT NULL,
     FOREIGN KEY (userId) REFERENCES EntityAuthInfo(userId)
 );
+
 CREATE TABLE Orders (
 	orderId CHAR(36) NOT NULL,
     productId CHAR(36) NOT NULL,
@@ -34,6 +36,7 @@ CREATE TABLE Orders (
     "password": "ewhf834f2lA84343ui54tiu",
     "user_type": "Seller"
 }
+
 - Login
 {
     "username": "sunil",

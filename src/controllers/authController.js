@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { EntityAuthModel } from "../models/entityAuthModel.js";
 
 export class AuthController {
-    async register(req, res) {
+    async register(req, res, next) {
         const entityAuthModel = new EntityAuthModel();
         const entityAuthObject = {
             userName: req.body.username,
