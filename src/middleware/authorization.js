@@ -6,13 +6,11 @@ export function verifyToken(req, res, next) {
     const bearerToken = req.headers["authorization"];
     const bearer = bearerToken.split(" ");
     const token = bearer[1];
-    console.log({token});
     if (!token) {
         return res.status(403).send("A token is required for authorization");
     }
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-        console.log({decoded});
         req.user = decoded;
     } catch (err) {
         console.log({err});

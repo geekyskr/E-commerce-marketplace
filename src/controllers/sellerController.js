@@ -4,10 +4,12 @@ export class SellerController {
     async createCatalog(req, res, next) {
         const productsModel = new ProductsModel();
         const products = req.body;
-        console.log(req.user);
-        // const modelProducts = generateModelProducts(products);
+        const user = req.user;
+        if(user.userType != "Seller") {
+            res.status(403).send("Only Seller can access this resource");
+        }
         try {
-            await productsModel.createCatalog(products);
+            await productsModel.createCatalog(products, user.userId);
             res.status(201).send(products);
         } catch (error) {
             res.status(500).send(error);
