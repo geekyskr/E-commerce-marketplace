@@ -42,3 +42,12 @@ CREATE TABLE Orders (
     "username": "sunil",
     "password": "ewhf834f2lA84343ui54tiu",
 }
+
+Below all payload will have additional req.headers["authorization"] as bearer token.
+bearer eyJhbGciOiJIh4n7giIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjNDI3MzE4YS04NmQ0LTQ4OGItfhayvS02ZDhiYzA5YWI0YzkiLCJ1c2VyVHlwZSI6IlNlbGxlciIsImlhdCI6MTY1MzE5NDA4MX0.e8vzWiPUm_4YvXogxgk-6dJXfzB5ntH5uhdyvbfrdxg
+
+- Create Catalog
+[["phone", 30000], ["headphone", 3000], ["earphone", 300]]
+
+-Get SellerList
+no payload require
