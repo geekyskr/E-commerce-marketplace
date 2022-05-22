@@ -1,8 +1,8 @@
 import express from "express";
 import pkg from 'body-parser';
-import { AuthController } from "../controllers/authController";
-import { BuyerController } from "../controllers/buyerController";
-import { SellerController, SellerController } from "../controllers/sellerController";
+import { AuthController } from "../controllers/authController.js";
+import { BuyerController } from "../controllers/buyerController.js";
+import { SellerController } from "../controllers/sellerController.js";
 const { json } = pkg;
 const app = express();
 

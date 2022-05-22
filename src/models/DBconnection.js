@@ -1,9 +1,11 @@
 import { createConnection } from 'mysql';
+import dotenv from "dotenv";
+dotenv.config();
 
 const mysqlConnection = createConnection({
   host: 'localhost',
   user: 'sunil',
-  password: 'MysqL@3007',
+  password: process.env.MYSQL_PASSWORD,
   database: 'EcommerceMarketplaceDB',
   multipleStatements: true
 });
