@@ -54,7 +54,7 @@ export class BuyerController {
         });
         try {
             await ordersModel.createOrder(modelValues);
-            res.status(201).send(modelValues);
+            res.status(201).send();
         } catch (error) {
             console.log(error);
             res.status(500).send(error);

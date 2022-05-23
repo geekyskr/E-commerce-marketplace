@@ -17,8 +17,8 @@ export class SellerController {
             return res.status(403).send("Only Seller can access this resource");
         }
         try {
-            await productsModel.createCatalog(products, user.userId);
-            res.status(201).send(products);
+            const result = await productsModel.createCatalog(products, user.userId);
+            res.status(201).send(result);
         } catch (error) {
             res.status(500).send(error.message);
         }

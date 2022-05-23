@@ -48,7 +48,7 @@ export class EntityAuthModel {
 
     async getSellerList() {
         const table_name = "EntityAuthInfo";
-        const query = "select userName from " + table_name + " where userType = ?"
+        const query = "select userId from " + table_name + " where userType = ?"
         const userType = "Seller";
         return new Promise((resolve, reject)=>{
             mysqlConnection.query(query, [userType], (error, result)=> {
