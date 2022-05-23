@@ -2,6 +2,7 @@ import { EntityAuthModel } from "../models/entityAuthModel.js";
 import { ProductsModel } from "../models/productsModel.js";
 import { OrdersModel } from "../models/ordersModel.js";
 import { v4 as uuidv4 } from 'uuid';
+import { validateRequestForCreateOrder } from "../validator.js/buyerControllerValidator.js";
 
 export class BuyerController {
     async getAllSellerList(req, res) {
@@ -14,7 +15,7 @@ export class BuyerController {
             const allSellerList = await entityAuthModel.getSellerList();
             res.status(200).send(allSellerList);
         } catch (error) {
-            res.status(500).send(error);
+            res.status(500).send(error.message);
         }
     }
 
@@ -29,15 +30,21 @@ export class BuyerController {
             const sellerCatalog = await productsModel.getSellerCatalog(sellerId);
             res.status(200).send(sellerCatalog);
         } catch (error) {
-            res.status(500).send(error);
+            res.status(500).send(error.message);
         }
     }
 
     async createOrder(req, res) {
+        const createOrderPayload = req.body;
+        try {
+            validateRequestForCreateOrder(createOrderPayload);
+        } catch(error) {
+            return res.status(400).send(error.message);
+        }
         const ordersModel = new OrdersModel();
         const user = req.user;
         const sellerId = req.params.seller_id;
-        const productIds = req.body;
+        const productIds = createOrderPayload;
         if(user.userType != "Buyer") {
             return res.status(403).send("Only Buyer can access this resource");
         }
