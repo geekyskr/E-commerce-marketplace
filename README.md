@@ -64,3 +64,6 @@ no payload requer. only sellerId in route.
     "f41e8b15-2631-4537-9262-d508f32d1285"
 ]
 and sellerId in route.
+
+- Get all order
+no payload require

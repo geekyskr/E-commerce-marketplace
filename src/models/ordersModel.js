@@ -13,4 +13,17 @@ export class OrdersModel {
             })
         })
     }
+
+    async getAllOrders(sellerId) {
+        const table_name = "Orders";
+        const query = "select distinct orderId from " + table_name + " where sellerId = ?";
+        return new Promise((resolve, reject) => {
+            mysqlConnection.query(query, [sellerId], (error, result) => {
+                if(error) {
+                    return reject(error);
+                }
+                else return resolve(result);
+            })
+        })
+    }
 }
