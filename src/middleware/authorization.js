@@ -3,10 +3,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export function verifyToken(req, res, next) {
-    const bearerToken = req.headers["authorization"];
-    const bearer = bearerToken.split(" ");
-    const token = bearer[1];
-    if (!token) {
+    let token;
+    try {
+        const bearerToken = req.headers["authorization"];
+        const bearer = bearerToken.split(" ");
+        token = bearer[1];
+    } catch (error) {
         return res.status(403).send("A token is required for authorization");
     }
     try {

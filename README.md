@@ -49,5 +49,8 @@ bearer eyJhbGciOiJIh4n7giIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjNDI3MzE4YS04NmQ0LTQ4
 - Create Catalog
 [["phone", 30000], ["headphone", 3000], ["earphone", 300]]
 
--Get SellerList
+- Get SellerList
 no payload require
+
+- Get SellerCatalog
+no payload requer. only sellerId in route.
