@@ -19,3 +19,19 @@ export function verifyToken(req, res, next) {
     }
     return next();
 };
+
+export function verifyBuyer(req, res, next) {
+    const user = req.user;
+    if(user.userType != "Buyer") {
+        return res.status(403).send("Only Buyer can access this resource");
+    }
+    return next();
+}
+
+export function verifySeller(req, res, next) {
+    const user = req.user;
+    if(user.userType != "Seller") {
+        return res.status(403).send("Only Seller can access this resource");
+    }
+    return next();
+}

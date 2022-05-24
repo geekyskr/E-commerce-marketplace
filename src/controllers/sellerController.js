@@ -12,13 +12,9 @@ export class SellerController {
         }
         const productsModel = new ProductsModel();
         const products = createCatalogPayload;
-        const user = req.user;
-        if(user.userType != "Seller") {
-            return res.status(403).send("Only Seller can access this resource");
-        }
         try {
-            const result = await productsModel.createCatalog(products, user.userId);
-            res.status(201).send(result);
+            await productsModel.createCatalog(products, req.user.userId);
+            res.status(201).send();
         } catch (error) {
             res.status(500).send(error.message);
         }
@@ -26,12 +22,8 @@ export class SellerController {
 
     async  getAllOrders(req, res) {
         const ordersModel = new OrdersModel();
-        const user = req.user;
-        if(user.userType != "Seller") {
-            res.status(403).send("Only Seller can access this resource");
-        }
         try {
-            const orderList = await ordersModel.getAllOrders(user.userId);
+            const orderList = await ordersModel.getAllOrders(req.user.userId);
             res.status(200).send(orderList);
         } catch(error) {
             res.status(500).send(error.message);

@@ -7,10 +7,6 @@ import { validateRequestForCreateOrder } from "../validator.js/buyerControllerVa
 export class BuyerController {
     async getAllSellerList(req, res) {
         const entityAuthModel = new EntityAuthModel();
-        const user = req.user;
-        if(user.userType != "Buyer") {
-            return res.status(403).send("Only Buyer can access this resource");
-        }
         try {
             const allSellerList = await entityAuthModel.getSellerList();
             res.status(200).send(allSellerList);
@@ -21,11 +17,7 @@ export class BuyerController {
 
     async getSellerCatalog(req, res) {
         const productsModel = new ProductsModel();
-        const user = req.user;
         const sellerId = req.params.seller_id;
-        if(user.userType != "Buyer") {
-            return res.status(403).send("Only Buyer can access this resource");
-        }
         try {
             const sellerCatalog = await productsModel.getSellerCatalog(sellerId);
             res.status(200).send(sellerCatalog);
@@ -42,15 +34,11 @@ export class BuyerController {
             return res.status(400).send(error.message);
         }
         const ordersModel = new OrdersModel();
-        const user = req.user;
         const sellerId = req.params.seller_id;
         const productIds = createOrderPayload;
-        if(user.userType != "Buyer") {
-            return res.status(403).send("Only Buyer can access this resource");
-        }
         const orderId = uuidv4();
         const modelValues = productIds.map((productId)=>{
-            return [orderId, productId, sellerId, user.userId];
+            return [orderId, productId, sellerId, req.user.userId];
         });
         try {
             await ordersModel.createOrder(modelValues);
