@@ -44,7 +44,12 @@ export class AuthController {
             const result = await entityAuthModel.logIn(username, password);
             res.status(200).send({JWTAuthToken: result});
         } catch(error) {
-            res.status(500).send(error.message);
+            if(error == "user does not exist") {
+                return res.status(404).send(error);
+            } else if(error == "wrong password") {
+                return res.status(401).send(error);
+            }
+            res.status(500).send({error: error});
         }
     }
 }
