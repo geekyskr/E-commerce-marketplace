@@ -16,7 +16,7 @@ export class SellerController {
             await productsModel.createCatalog(products, req.user.userId);
             res.status(201).send();
         } catch (error) {
-            res.status(500).send(error.message);
+            res.status(500).send();
         }
     }
 
@@ -26,7 +26,7 @@ export class SellerController {
             const orderList = await ordersModel.getAllOrders(req.user.userId);
             res.status(200).send(orderList);
         } catch(error) {
-            res.status(500).send(error.message);
+            res.status(500).send();
         }
     }
 }

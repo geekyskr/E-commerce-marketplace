@@ -26,7 +26,7 @@ export class AuthController {
             await entityAuthModel.createUser(entityAuthObject);
             res.status(201).send();
         } catch(error) {
-            res.status(500).send({error: error});
+            res.status(500).send();
         }
     }
 
@@ -49,7 +49,7 @@ export class AuthController {
             } else if(error == "wrong password") {
                 return res.status(401).send(error);
             }
-            res.status(500).send({error: error});
+            res.status(500).send();
         }
     }
 }

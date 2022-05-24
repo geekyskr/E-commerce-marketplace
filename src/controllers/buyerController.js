@@ -11,7 +11,7 @@ export class BuyerController {
             const allSellerList = await entityAuthModel.getSellerList();
             res.status(200).send(allSellerList);
         } catch (error) {
-            res.status(500).send(error.message);
+            res.status(500).send();
         }
     }
 
@@ -22,7 +22,7 @@ export class BuyerController {
             const sellerCatalog = await productsModel.getSellerCatalog(sellerId);
             res.status(200).send(sellerCatalog);
         } catch (error) {
-            res.status(500).send(error.message);
+            res.status(500).send();
         }
     }
 
@@ -44,8 +44,7 @@ export class BuyerController {
             await ordersModel.createOrder(modelValues);
             res.status(201).send();
         } catch (error) {
-            console.log(error);
-            res.status(500).send(error);
+            res.status(500).send();
         }
     }
 }
