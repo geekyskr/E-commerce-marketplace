@@ -19,10 +19,14 @@ export class AuthController {
             userType: registerPayload.user_type
         };
         try {
-            const result = await entityAuthModel.createUser(entityAuthObject);
-            res.status(201).send(result);
+            const isUsernameExist = await entityAuthModel.isUsernameExist(entityAuthObject.userName);
+            if(isUsernameExist) {
+                return res.status(409).send("username exist: Please use unique username");
+            }
+            await entityAuthModel.createUser(entityAuthObject);
+            res.status(201).send();
         } catch(error) {
-            res.status(500).send(error.message);
+            res.status(500).send({error: error});
         }
     }
 

@@ -19,6 +19,17 @@ export class EntityAuthModel {
         });
     }
 
+    async isUsernameExist(userName) {
+        const table_name = "EntityAuthInfo";
+        const query = "select * from " + table_name + " where userName = ?";
+        return new Promise((resolve, reject)=>{
+            mysqlConnection.query(query, [userName], (error, result)=>{
+                if(error) return reject(error.message);
+                else return resolve(result.length != 0);
+            })
+        })
+    }
+
     async logIn(username, password) {
         const table_name = "EntityAuthInfo";
         const mySQL_query = "select * from " + table_name + " where userName = ?";
