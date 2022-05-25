@@ -2,7 +2,7 @@ import { passwordStrength } from 'check-password-strength'
 
 export function validateRequestForRegister(registerPayload) {
     if(!registerPayload.username){
-        throw new Error("username is required in paylaod");
+        throw new Error("username is required in payload");
     } else if(!registerPayload.password){
         throw new Error("password is required in paylaod");
     } else if(passwordStrength(registerPayload.password).value != "Strong") {

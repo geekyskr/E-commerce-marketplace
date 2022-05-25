@@ -4,6 +4,9 @@ import { OrdersModel } from "../models/ordersModel.js";
 import { v4 as uuidv4 } from 'uuid';
 import { validateRequestForCreateOrder } from "../validator.js/buyerControllerValidator.js";
 
+import bunyan from "bunyan";
+var log = bunyan.createLogger({name: "buyer-controller"});
+
 export class BuyerController {
     async getAllSellerList(req, res) {
         const entityAuthModel = new EntityAuthModel();
@@ -11,6 +14,7 @@ export class BuyerController {
             const allSellerList = await entityAuthModel.getSellerList();
             res.status(200).send(allSellerList);
         } catch (error) {
+            log.warn(error);
             res.status(500).send();
         }
     }
@@ -22,15 +26,18 @@ export class BuyerController {
             const sellerCatalog = await productsModel.getSellerCatalog(sellerId);
             res.status(200).send(sellerCatalog);
         } catch (error) {
+            log.warn(error);
             res.status(500).send();
         }
     }
 
     async createOrder(req, res) {
         const createOrderPayload = req.body;
+        log.info({createOrderPayload});
         try {
             validateRequestForCreateOrder(createOrderPayload);
         } catch(error) {
+            log.warn(error);
             return res.status(400).send(error.message);
         }
         const ordersModel = new OrdersModel();
@@ -44,6 +51,7 @@ export class BuyerController {
             await ordersModel.createOrder(modelValues);
             res.status(201).send();
         } catch (error) {
+            log.warn(error);
             res.status(500).send();
         }
     }

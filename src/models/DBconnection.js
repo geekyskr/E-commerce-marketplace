@@ -2,6 +2,9 @@ import { createConnection } from 'mysql';
 import dotenv from "dotenv";
 dotenv.config();
 
+import bunyan from "bunyan";
+var log = bunyan.createLogger({name: "DB-connection"});
+
 const mysqlConnection = createConnection({
   host: 'localhost',
   user: 'sunil',
@@ -11,10 +14,10 @@ const mysqlConnection = createConnection({
 });
 mysqlConnection.connect((err)=>{
   if(err){
-    console.error("error occur while connecting "+err);
+    log.warn("error occur while connecting "+err);
     return;
   }
-  console.log("connection established");
+  log.info("connection established");
 });
 
 export default mysqlConnection;

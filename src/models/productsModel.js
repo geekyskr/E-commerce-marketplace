@@ -1,6 +1,9 @@
 import mysqlConnection from "./DBconnection.js";
 import { v4 as uuidv4 } from 'uuid';
 
+import bunyan from "bunyan";
+var log = bunyan.createLogger({name: "ProductsModel"});
+
 export class ProductsModel {
     async createCatalog(products, userId) {
         const table_name = "Products";
@@ -14,7 +17,10 @@ export class ProductsModel {
                 if (error) {
                     return reject(error.message);
                 }
-                else return resolve(result);
+                else {
+                    log.info("Catalog created for seller ", userId);
+                    return resolve();
+                }
             });
         });
     }

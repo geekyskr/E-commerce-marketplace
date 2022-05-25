@@ -2,12 +2,17 @@ import { ProductsModel } from "../models/productsModel.js";
 import { OrdersModel } from "../models/ordersModel.js";
 import { validateRequestForCreateCatalog } from "../validator.js/sellerControllerValidator.js";
 
+import bunyan from "bunyan";
+var log = bunyan.createLogger({name: "auth-controller"});
+
 export class SellerController {
     async createCatalog(req, res, next) {
         const createCatalogPayload = req.body;
+        log.info({createCatalogPayload});
         try {
             validateRequestForCreateCatalog(createCatalogPayload);
         } catch (error) {
+            log.warn(error);
             return res.status(400).send(error.message);
         }
         const productsModel = new ProductsModel();
@@ -16,6 +21,7 @@ export class SellerController {
             await productsModel.createCatalog(products, req.user.userId);
             res.status(201).send();
         } catch (error) {
+            log.warn(error);
             res.status(500).send();
         }
     }
@@ -26,6 +32,7 @@ export class SellerController {
             const orderList = await ordersModel.getAllOrders(req.user.userId);
             res.status(200).send(orderList);
         } catch(error) {
+            log.warn(error);
             res.status(500).send();
         }
     }

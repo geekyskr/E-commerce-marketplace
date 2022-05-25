@@ -4,6 +4,9 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
+import bunyan from "bunyan";
+var log = bunyan.createLogger({name: "EntityAuthModel"});
+
 export class EntityAuthModel {
     async createUser(entityAuthObject) {
         const table_name = "EntityAuthInfo";
@@ -14,7 +17,10 @@ export class EntityAuthModel {
                 if (error) {
                     return reject(error.message);
                 }
-                else return resolve(result);
+                else {
+                    log.info("New user created with id", entityAuthObject.userId)
+                    return resolve(result)
+                };
             });
         });
     }
@@ -46,7 +52,8 @@ export class EntityAuthModel {
                             userType: result[0].userType
                         }
                         const authToken = jwt.sign(jwtPayload, process.env.JWT_SECRET_KEY);
-                        resolve(authToken);
+                        log.info("Successful login for userId", result[0].userId)
+                        return resolve(authToken);
                     } else {
                         return reject("wrong password");
                     }
@@ -65,7 +72,7 @@ export class EntityAuthModel {
             mysqlConnection.query(query, [userType], (error, result)=> {
                 if(error) return reject(error);
                 let sellerList = result.map((seller)=>{
-                    return seller.userName;
+                    return seller.userId;
                 });
                 return resolve(sellerList);
             })

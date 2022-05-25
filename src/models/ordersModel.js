@@ -1,5 +1,8 @@
 import mysqlConnection from "./DBconnection.js";
 
+import bunyan from "bunyan";
+var log = bunyan.createLogger({name: "OrdersModel"});
+
 export class OrdersModel {
     async createOrder(modelValues) {
         const table_name = "Orders";
@@ -9,7 +12,10 @@ export class OrdersModel {
                 if(error) {
                     return reject(error);
                 }
-                else return resolve(result);
+                else {
+                    log.info("New order created with values ", modelValues);
+                    return resolve();
+                }
             })
         })
     }
