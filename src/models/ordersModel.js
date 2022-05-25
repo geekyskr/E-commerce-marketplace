@@ -13,7 +13,7 @@ export class OrdersModel {
                     return reject(error);
                 }
                 else {
-                    log.info("New order created with values ", modelValues);
+                    log.info({modelValues}, "New order created");
                     return resolve();
                 }
             })

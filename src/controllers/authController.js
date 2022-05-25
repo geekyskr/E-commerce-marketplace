@@ -9,7 +9,7 @@ var log = bunyan.createLogger({name: "auth-controller"});
 export class AuthController {
     async register(req, res, next) {
         const registerPayload = req.body;
-        log.info({registerPayload});
+        log.info({registerPayload}, "New user creation request");
         try {
             validateRequestForRegister(registerPayload);
         } catch (error) {
@@ -38,7 +38,7 @@ export class AuthController {
 
     async login(req, res) {
         const loginPayload = req.body;
-        log.info([loginPayload]);
+        log.info([loginPayload], "user trying to login");
         try {
             validateRequestForLogin(loginPayload);
         } catch (error) {

@@ -33,7 +33,7 @@ export class BuyerController {
 
     async createOrder(req, res) {
         const createOrderPayload = req.body;
-        log.info({createOrderPayload});
+        log.info({createOrderPayload}, "user trying to create order");
         try {
             validateRequestForCreateOrder(createOrderPayload);
         } catch(error) {

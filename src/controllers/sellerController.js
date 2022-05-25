@@ -8,7 +8,7 @@ var log = bunyan.createLogger({name: "auth-controller"});
 export class SellerController {
     async createCatalog(req, res, next) {
         const createCatalogPayload = req.body;
-        log.info({createCatalogPayload});
+        log.info({createCatalogPayload}, "user trying to create catalog");
         try {
             validateRequestForCreateCatalog(createCatalogPayload);
         } catch (error) {
