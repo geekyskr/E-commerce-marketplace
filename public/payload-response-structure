@@ -6,6 +6,7 @@
 }
 Response: 201 status code or error.
 
+
 - Login
 {
     "username": "sunil",
@@ -13,9 +14,11 @@ Response: 201 status code or error.
 }
 Response: 200 status code with JWTAuthToken or error.
 
+
 Below all payload will have additional req.headers["authorization"] as bearer token.
 
 Example: bearer $jwtToken
+
 
 
 - Create Catalog
@@ -23,14 +26,53 @@ Example: bearer $jwtToken
 Response: 201 status code or error.
 
 
+
 - Get SellerList
 no payload require
-Response: 200 status code with an array consisting ids of all sellers or error.
-
+Response: 200 status code with an array consisting ids + userName of all sellers or error.
+[
+    {
+        "userId": "16a58e48-bcff-4d4f-9a40-7115e068ab20",
+        "userName": "sunilks"
+    },
+    {
+        "userId": "2e00d765-1df1-44b9-b9d1-6058acbd6e3e",
+        "userName": "sangitaks"
+    },
+    {
+        "userId": "76390362-b373-474b-92b7-8b2d7f180896",
+        "userName": "sangita"
+    },
+    {
+        "userId": "9ce80db8-4688-4f8a-b4fb-d837015549be",
+        "userName": "priyanka"
+    },
+    {
+        "userId": "c427318a-86d4-488b-8cb9-6d8bc09ab4c9",
+        "userName": "sunil"
+    }
+]
 
 - Get SellerCatalog
 no payload requer. only sellerId in route.
 Response: 200 status code with array of product details for that seller or error.
+[
+    {
+        "productId": "5bf30b08-35ac-4529-8b1b-3713f417c5d0",
+        "productName": "phone",
+        "productPrice": 30000
+    },
+    {
+        "productId": "5df6294c-65a7-444e-9771-ba00a458bed9",
+        "productName": "headphone",
+        "productPrice": 3000
+    },
+    {
+        "productId": "f41e8b15-2631-4537-9262-d508f32d1285",
+        "productName": "earphone",
+        "productPrice": 300
+    }
+]
 
 
 - Create Order (itemIds)
@@ -44,4 +86,36 @@ Response: 201 status code or error.
 
 - Get all order
 no payload require
-Response: 200 status code with array consisting all orderId for the seller or error.
+Response: 200 status code with array consisting all orderId + productId + productDetails for the seller or error.
+[
+    {
+        "orderId": "0cb1df11-2c79-4d13-badd-6761bc6dd08b",
+        "items": [
+            {
+                "productId": "5bf30b08-35ac-4529-8b1b-3713f417c5d0",
+                "productName": "phone",
+                "productPrice": 30000
+            },
+            {
+                "productId": "f41e8b15-2631-4537-9262-d508f32d1285",
+                "productName": "earphone",
+                "productPrice": 300
+            }
+        ]
+    },
+    {
+        "orderId": "9b000b0d-edf9-461e-818e-4ea1b29fd3f7",
+        "items": [
+            {
+                "productId": "5bf30b08-35ac-4529-8b1b-3713f417c5d0",
+                "productName": "phone",
+                "productPrice": 30000
+            },
+            {
+                "productId": "f41e8b15-2631-4537-9262-d508f32d1285",
+                "productName": "earphone",
+                "productPrice": 300
+            }
+        ]
+    }
+]

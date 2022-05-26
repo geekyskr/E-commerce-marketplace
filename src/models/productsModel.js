@@ -37,4 +37,17 @@ export class ProductsModel {
             })
         })
     }
+
+    async getProductDetailsByProductId(productId) {
+        const table_name = "Products";
+        const query  = "select productId, productName, productPrice from " + table_name + " where productId = ?";
+        return new Promise((resolve, reject) => {
+            mysqlConnection.query(query, [productId], (error, result) => {
+                if(error) {
+                    return reject(error.message);
+                }
+                else return resolve(result);
+            })
+        })
+    }
 }

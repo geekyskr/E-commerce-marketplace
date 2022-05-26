@@ -32,4 +32,17 @@ export class OrdersModel {
             })
         })
     }
+
+    async getAllItems(orderId) {
+        const table_name = "Orders";
+        const query = "select productId from " + table_name + " where orderId = ?";
+        return new Promise((resolve, reject) => {
+            mysqlConnection.query(query, [orderId], (error, result) => {
+                if(error) {
+                    return reject(error);
+                }
+                else return resolve(result);
+            })
+        })
+    }
 }

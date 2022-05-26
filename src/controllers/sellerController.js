@@ -28,9 +28,23 @@ export class SellerController {
 
     async  getAllOrders(req, res) {
         const ordersModel = new OrdersModel();
+        const productsModel = new ProductsModel();
         try {
             const orderList = await ordersModel.getAllOrders(req.user.userId);
-            res.status(200).send(orderList);
+            const orders = [];
+            for(let index = 0; index<orderList.length; index++) {
+                const orderId = orderList[index].orderId;
+                let Items = await ordersModel.getAllItems(orderId);
+                Items = await Promise.all(Items.map(async (product)=>{
+                    const productDetails = await productsModel.getProductDetailsByProductId(product.productId);
+                    return productDetails[0];
+                }))
+                let currOrder = {};
+                currOrder.orderId = orderId;
+                currOrder.items = Items;
+                orders.push(currOrder);
+            }
+            res.status(200).send(orders);
         } catch(error) {
             log.warn(error);
             res.status(500).send();
