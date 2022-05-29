@@ -32,7 +32,7 @@ export class SellerController {
             // any of below  method can be used to get orders.
             const orders = await getOrdersWithItems(sellerId);   // more db call. less local memory.
             const ordersLessDB = await getOrdersWithItemsMinDBCalls(sellerId);    // less db call. more local memory.
-            res.status(200).send(orders);
+            res.status(200).send(ordersLessDB);
         } catch(error) {
             log.warn(error);
             res.status(500).send();

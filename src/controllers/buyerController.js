@@ -34,14 +34,22 @@ export class BuyerController {
     async createOrder(req, res) {
         const createOrderPayload = req.body;
         log.info({createOrderPayload}, "user trying to create order");
+        const productsModel = new ProductsModel();
+        const sellerId = req.params.seller_id;
         try {
             validateRequestForCreateOrder(createOrderPayload);
+            const sellerCatalogDetails = await productsModel.getSellerCatalog(sellerId);
+            const sellerCatalog = sellerCatalogDetails.map((product)=>{
+                return (JSON.parse(JSON.stringify(product))).productId;
+            })
+            if(!createOrderPayload.every(element => sellerCatalog.indexOf(element) > -1)) {
+                throw new Error("Item should present in seller catalog");
+            }
         } catch(error) {
             log.warn(error);
             return res.status(400).send(error.message);
         }
         const ordersModel = new OrdersModel();
-        const sellerId = req.params.seller_id;
         const productIds = createOrderPayload;
         const orderId = uuidv4();
         const modelValues = productIds.map((productId)=>{
