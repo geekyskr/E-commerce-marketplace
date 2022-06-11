@@ -1,10 +1,10 @@
 # E-commerce-marketplace
 
 **Schema and Table creation query -**
-visit: E-commerce-marketplace/public/db-table-command
+See: [E-commerce-marketplace/public/db-table-command](https://github.com/geekyskr/E-commerce-marketplace/blob/main/public/db-table-command)
 
 **Payload and Response Example**
-visit: E-commerce-marketplace/public/payload-response-structure
+See: [E-commerce-marketplace/public/payload-response-structure](https://github.com/geekyskr/E-commerce-marketplace/blob/main/public/payload-response-structure)
 
 **How to run this project?**
 1. Clone this project and enter.
